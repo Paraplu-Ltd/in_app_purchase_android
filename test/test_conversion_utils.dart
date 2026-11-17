@@ -94,6 +94,12 @@ PlatformOneTimePurchaseOfferDetails? _convertToPigeonOneTimePurchaseOfferDetails
     priceAmountMicros: offer.priceAmountMicros,
     formattedPrice: offer.formattedPrice,
     priceCurrencyCode: offer.priceCurrencyCode,
+    offerToken: offer.offerToken,
+    offerId: offer.offerId,
+    purchaseOptionId: offer.purchaseOptionId,
+    fullPriceMicros: offer.fullPriceMicros,
+    percentageDiscount: offer.percentageDiscount,
+    offerTags: offer.offerTags,
   );
 }
 

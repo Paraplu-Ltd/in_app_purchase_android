@@ -339,6 +339,12 @@ class PlatformOneTimePurchaseOfferDetails {
     required this.priceAmountMicros,
     required this.formattedPrice,
     required this.priceCurrencyCode,
+    this.offerToken,
+    this.offerId,
+    this.purchaseOptionId,
+    this.fullPriceMicros,
+    this.percentageDiscount,
+    required this.offerTags,
   });
 
   int priceAmountMicros;
@@ -347,8 +353,30 @@ class PlatformOneTimePurchaseOfferDetails {
 
   String priceCurrencyCode;
 
+  String? offerToken;
+
+  String? offerId;
+
+  String? purchaseOptionId;
+
+  int? fullPriceMicros;
+
+  int? percentageDiscount;
+
+  List<String> offerTags;
+
   List<Object?> _toList() {
-    return <Object?>[priceAmountMicros, formattedPrice, priceCurrencyCode];
+    return <Object?>[
+      priceAmountMicros,
+      formattedPrice,
+      priceCurrencyCode,
+      offerToken,
+      offerId,
+      purchaseOptionId,
+      fullPriceMicros,
+      percentageDiscount,
+      offerTags,
+    ];
   }
 
   Object encode() {
@@ -361,6 +389,12 @@ class PlatformOneTimePurchaseOfferDetails {
       priceAmountMicros: result[0]! as int,
       formattedPrice: result[1]! as String,
       priceCurrencyCode: result[2]! as String,
+      offerToken: result[3] as String?,
+      offerId: result[4] as String?,
+      purchaseOptionId: result[5] as String?,
+      fullPriceMicros: result[6] as int?,
+      percentageDiscount: result[7] as int?,
+      offerTags: (result[8]! as List<Object?>).cast<String>(),
     );
   }
 
@@ -375,7 +409,13 @@ class PlatformOneTimePurchaseOfferDetails {
     }
     return _deepEquals(priceAmountMicros, other.priceAmountMicros) &&
         _deepEquals(formattedPrice, other.formattedPrice) &&
-        _deepEquals(priceCurrencyCode, other.priceCurrencyCode);
+        _deepEquals(priceCurrencyCode, other.priceCurrencyCode) &&
+        _deepEquals(offerToken, other.offerToken) &&
+        _deepEquals(offerId, other.offerId) &&
+        _deepEquals(purchaseOptionId, other.purchaseOptionId) &&
+        _deepEquals(fullPriceMicros, other.fullPriceMicros) &&
+        _deepEquals(percentageDiscount, other.percentageDiscount) &&
+        _deepEquals(offerTags, other.offerTags);
   }
 
   @override
@@ -384,7 +424,7 @@ class PlatformOneTimePurchaseOfferDetails {
 
   @override
   String toString() {
-    return 'PlatformOneTimePurchaseOfferDetails(priceAmountMicros: $priceAmountMicros, formattedPrice: $formattedPrice, priceCurrencyCode: $priceCurrencyCode)';
+    return 'PlatformOneTimePurchaseOfferDetails(priceAmountMicros: $priceAmountMicros, formattedPrice: $formattedPrice, priceCurrencyCode: $priceCurrencyCode, offerToken: $offerToken, offerId: $offerId, purchaseOptionId: $purchaseOptionId, fullPriceMicros: $fullPriceMicros, percentageDiscount: $percentageDiscount, offerTags: $offerTags)';
   }
 }
 

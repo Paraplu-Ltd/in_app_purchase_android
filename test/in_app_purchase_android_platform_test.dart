@@ -355,6 +355,48 @@ void main() {
       expect(result.productID, productDetails.productId);
     });
 
+    test('buy non consumable at a one-time offer passes its offer token', () async {
+      const offer = OneTimePurchaseOfferDetailsWrapper(
+        formattedPrice: r'$1.99',
+        priceAmountMicros: 1990000,
+        priceCurrencyCode: 'USD',
+        offerToken: 'discountOfferToken',
+        offerId: 'launch',
+        purchaseOptionId: 'buy',
+        fullPriceMicros: 2990000,
+        percentageDiscount: 33,
+      );
+      const productDetails = ProductDetailsWrapper(
+        description: 'description',
+        name: 'name',
+        productId: 'productId',
+        productType: ProductType.inapp,
+        title: 'title',
+        oneTimePurchaseOfferDetails: offer,
+        oneTimePurchaseOfferDetailsList: <OneTimePurchaseOfferDetailsWrapper>[offer],
+      );
+      when(mockApi.launchBillingFlow(any)).thenAnswer(
+        (_) async => convertToPigeonResult(
+          const BillingResultWrapper(responseCode: BillingResponse.ok, debugMessage: ''),
+        ),
+      );
+      final purchaseParam = GooglePlayPurchaseParam(
+        offerToken: productDetails.oneTimePurchaseOfferDetailsList!.first.offerToken,
+        productDetails: GooglePlayProductDetails.fromProductDetails(productDetails).first,
+      );
+
+      final bool launchResult = await iapAndroidPlatform.buyNonConsumable(
+        purchaseParam: purchaseParam,
+      );
+
+      expect(launchResult, isTrue);
+      final params =
+          verify(mockApi.launchBillingFlow(captureAny)).captured.single
+              as PlatformBillingFlowParams;
+      expect(params.product, 'productId');
+      expect(params.offerToken, 'discountOfferToken');
+    });
+
     test('buy non consumable, serializes and deserializes data', () async {
       const ProductDetailsWrapper productDetails = dummyOneTimeProductDetails;
       const accountId = 'hashedAccountId';

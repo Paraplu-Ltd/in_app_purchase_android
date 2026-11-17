@@ -77,6 +77,12 @@ OneTimePurchaseOfferDetailsWrapper? oneTimePurchaseOfferDetailsWrapperFromPlatfo
     formattedPrice: details.formattedPrice,
     priceAmountMicros: details.priceAmountMicros,
     priceCurrencyCode: details.priceCurrencyCode,
+    offerToken: details.offerToken,
+    offerId: details.offerId,
+    purchaseOptionId: details.purchaseOptionId,
+    fullPriceMicros: details.fullPriceMicros,
+    percentageDiscount: details.percentageDiscount,
+    offerTags: details.offerTags,
   );
 }
 

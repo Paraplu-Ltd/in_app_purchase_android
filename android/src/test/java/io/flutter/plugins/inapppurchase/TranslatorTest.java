@@ -34,7 +34,8 @@ public class TranslatorTest {
   private static final String IN_APP_PRODUCT_DETAIL_EXAMPLE_JSON =
       "{\"title\":\"Example title\",\"description\":\"Example description\",\"productId\":\"Example"
           + " id\",\"type\":\"inapp\",\"name\":\"Example"
-          + " name\",\"oneTimePurchaseOfferDetails\":{\"priceAmountMicros\":990000,\"priceCurrencyCode\":\"USD\",\"formattedPrice\":\"$0.99\"}}";
+          + " name\",\"oneTimePurchaseOfferDetails\":{\"priceAmountMicros\":990000,\"priceCurrencyCode\":\"USD\",\"formattedPrice\":\"$0.99\",\"offerToken\":\"Example"
+          + " offer token\",\"offerId\":\"launch\"}}";
   private static final String SUBS_PRODUCT_DETAIL_EXAMPLE_JSON =
       "{\"title\":\"Example title 2\",\"description\":\"Example description"
           + " 2\",\"productId\":\"Example id 2\",\"type\":\"subs\",\"name\":\"Example name"
@@ -64,6 +65,9 @@ public class TranslatorTest {
     PlatformProductDetails serialized = TranslatorKt.fromProductDetail(expected);
 
     assertSerialized(expected, serialized);
+    assertEquals(
+        "Example offer token", serialized.getOneTimePurchaseOfferDetails().getOfferToken());
+    assertEquals("launch", serialized.getOneTimePurchaseOfferDetails().getOfferId());
   }
 
   @Test
@@ -238,6 +242,11 @@ public class TranslatorTest {
     assertEquals(expected.getPriceAmountMicros(), serialized.getPriceAmountMicros());
     assertEquals(expected.getPriceCurrencyCode(), serialized.getPriceCurrencyCode());
     assertEquals(expected.getFormattedPrice(), serialized.getFormattedPrice());
+    assertEquals(expected.getOfferToken(), serialized.getOfferToken());
+    assertEquals(expected.getOfferId(), serialized.getOfferId());
+    assertEquals(expected.getPurchaseOptionId(), serialized.getPurchaseOptionId());
+    assertEquals(expected.getFullPriceMicros(), serialized.getFullPriceMicros());
+    assertEquals(expected.getOfferTags(), serialized.getOfferTags());
   }
 
   private void assertSerialized(

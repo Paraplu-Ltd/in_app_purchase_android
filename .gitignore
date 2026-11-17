@@ -11,3 +11,4 @@ local.properties
 android/.gradle/
 example/build/
 example/.dart_tool/
+example/android/app/src/main/java/

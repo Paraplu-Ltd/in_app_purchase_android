@@ -488,15 +488,35 @@ data class PlatformBillingResult(
 data class PlatformOneTimePurchaseOfferDetails(
     val priceAmountMicros: Long,
     val formattedPrice: String,
-    val priceCurrencyCode: String
+    val priceCurrencyCode: String,
+    val offerToken: String? = null,
+    val offerId: String? = null,
+    val purchaseOptionId: String? = null,
+    val fullPriceMicros: Long? = null,
+    val percentageDiscount: Long? = null,
+    val offerTags: List<String>
 ) {
   companion object {
     fun fromList(pigeonVar_list: List<Any?>): PlatformOneTimePurchaseOfferDetails {
       val priceAmountMicros = pigeonVar_list[0] as Long
       val formattedPrice = pigeonVar_list[1] as String
       val priceCurrencyCode = pigeonVar_list[2] as String
+      val offerToken = pigeonVar_list[3] as String?
+      val offerId = pigeonVar_list[4] as String?
+      val purchaseOptionId = pigeonVar_list[5] as String?
+      val fullPriceMicros = pigeonVar_list[6] as Long?
+      val percentageDiscount = pigeonVar_list[7] as Long?
+      val offerTags = pigeonVar_list[8] as List<String>
       return PlatformOneTimePurchaseOfferDetails(
-          priceAmountMicros, formattedPrice, priceCurrencyCode)
+          priceAmountMicros,
+          formattedPrice,
+          priceCurrencyCode,
+          offerToken,
+          offerId,
+          purchaseOptionId,
+          fullPriceMicros,
+          percentageDiscount,
+          offerTags)
     }
   }
 
@@ -505,6 +525,12 @@ data class PlatformOneTimePurchaseOfferDetails(
         priceAmountMicros,
         formattedPrice,
         priceCurrencyCode,
+        offerToken,
+        offerId,
+        purchaseOptionId,
+        fullPriceMicros,
+        percentageDiscount,
+        offerTags,
     )
   }
 
@@ -518,7 +544,13 @@ data class PlatformOneTimePurchaseOfferDetails(
     val other = other as PlatformOneTimePurchaseOfferDetails
     return MessagesPigeonUtils.deepEquals(this.priceAmountMicros, other.priceAmountMicros) &&
         MessagesPigeonUtils.deepEquals(this.formattedPrice, other.formattedPrice) &&
-        MessagesPigeonUtils.deepEquals(this.priceCurrencyCode, other.priceCurrencyCode)
+        MessagesPigeonUtils.deepEquals(this.priceCurrencyCode, other.priceCurrencyCode) &&
+        MessagesPigeonUtils.deepEquals(this.offerToken, other.offerToken) &&
+        MessagesPigeonUtils.deepEquals(this.offerId, other.offerId) &&
+        MessagesPigeonUtils.deepEquals(this.purchaseOptionId, other.purchaseOptionId) &&
+        MessagesPigeonUtils.deepEquals(this.fullPriceMicros, other.fullPriceMicros) &&
+        MessagesPigeonUtils.deepEquals(this.percentageDiscount, other.percentageDiscount) &&
+        MessagesPigeonUtils.deepEquals(this.offerTags, other.offerTags)
   }
 
   override fun hashCode(): Int {
@@ -526,11 +558,17 @@ data class PlatformOneTimePurchaseOfferDetails(
     result = 31 * result + MessagesPigeonUtils.deepHash(this.priceAmountMicros)
     result = 31 * result + MessagesPigeonUtils.deepHash(this.formattedPrice)
     result = 31 * result + MessagesPigeonUtils.deepHash(this.priceCurrencyCode)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.offerToken)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.offerId)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.purchaseOptionId)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.fullPriceMicros)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.percentageDiscount)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.offerTags)
     return result
   }
 
   override fun toString(): String {
-    return "PlatformOneTimePurchaseOfferDetails(priceAmountMicros=$priceAmountMicros, formattedPrice=$formattedPrice, priceCurrencyCode=$priceCurrencyCode)"
+    return "PlatformOneTimePurchaseOfferDetails(priceAmountMicros=$priceAmountMicros, formattedPrice=$formattedPrice, priceCurrencyCode=$priceCurrencyCode, offerToken=$offerToken, offerId=$offerId, purchaseOptionId=$purchaseOptionId, fullPriceMicros=$fullPriceMicros, percentageDiscount=$percentageDiscount, offerTags=$offerTags)"
   }
 }
 

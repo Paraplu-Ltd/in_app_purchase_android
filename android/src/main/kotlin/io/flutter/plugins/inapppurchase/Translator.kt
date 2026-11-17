@@ -77,7 +77,14 @@ fun fromOneTimePurchaseOfferDetails(
   return PlatformOneTimePurchaseOfferDetails(
       priceAmountMicros = oneTimePurchaseOfferDetails.priceAmountMicros,
       formattedPrice = oneTimePurchaseOfferDetails.formattedPrice,
-      priceCurrencyCode = oneTimePurchaseOfferDetails.priceCurrencyCode)
+      priceCurrencyCode = oneTimePurchaseOfferDetails.priceCurrencyCode,
+      offerToken = oneTimePurchaseOfferDetails.offerToken,
+      offerId = oneTimePurchaseOfferDetails.offerId,
+      purchaseOptionId = oneTimePurchaseOfferDetails.purchaseOptionId,
+      fullPriceMicros = oneTimePurchaseOfferDetails.fullPriceMicros,
+      percentageDiscount =
+          oneTimePurchaseOfferDetails.discountDisplayInfo?.percentageDiscount?.toLong(),
+      offerTags = oneTimePurchaseOfferDetails.offerTags)
 }
 
 fun fromOneTimePurchaseOfferDetailsList(

@@ -1,3 +1,10 @@
+> **Paraplu fork.** This is `in_app_purchase_android` 0.5.5 from
+> [flutter/packages](https://github.com/flutter/packages/tree/main/packages/in_app_purchase/in_app_purchase_android)
+> with one change: a one-time product's offers expose their offer token (and
+> discount details) to Dart, so a discount offer can be bought. The first
+> commit is the unchanged upstream package; see CHANGELOG.md for the change.
+> Use it through `dependency_overrides` with a git dependency on this repository.
+
 # in\_app\_purchase\_android
 
 The Android implementation of [`in_app_purchase`][1].

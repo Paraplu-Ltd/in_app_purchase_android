@@ -66,11 +66,23 @@ class PlatformOneTimePurchaseOfferDetails {
     required this.priceAmountMicros,
     required this.formattedPrice,
     required this.priceCurrencyCode,
+    required this.offerToken,
+    required this.offerId,
+    required this.purchaseOptionId,
+    required this.fullPriceMicros,
+    required this.percentageDiscount,
+    required this.offerTags,
   });
 
   final int priceAmountMicros;
   final String formattedPrice;
   final String priceCurrencyCode;
+  final String? offerToken;
+  final String? offerId;
+  final String? purchaseOptionId;
+  final int? fullPriceMicros;
+  final int? percentageDiscount;
+  final List<String> offerTags;
 }
 
 /// Pigeon version of Java ProductDetails.

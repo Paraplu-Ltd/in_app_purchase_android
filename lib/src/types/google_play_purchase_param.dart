@@ -21,7 +21,9 @@ class GooglePlayPurchaseParam extends PurchaseParam {
   /// downgrading an existing subscription.
   final ChangeSubscriptionParam? changeSubscriptionParam;
 
-  /// For One-time product, "offerToken" shouldn't be filled.
+  /// For a one-time product, leave it null to buy at the default offer, or
+  /// pass `ProductDetailsWrapper.oneTimePurchaseOfferDetailsList[i].offerToken`
+  /// to buy at that offer's price (for example a discount offer).
   ///
   /// For subscriptions, to get the offer token corresponding to the selected
   /// offer call productDetails.subscriptionOfferDetails?.get(selectedOfferIndex)?.offerToken

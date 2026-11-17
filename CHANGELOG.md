@@ -1,3 +1,12 @@
+## 0.5.5+paraplu.1
+
+* Paraplu fork. Adds `offerToken`, `offerId`, `purchaseOptionId`,
+  `fullPriceMicros`, `percentageDiscount` and `offerTags` to
+  `OneTimePurchaseOfferDetailsWrapper`, so a one-time product's discount offer
+  can be bought by passing its token as `GooglePlayPurchaseParam.offerToken`.
+  The native side already passed that token to `BillingFlowParams`; the Dart
+  side had no way to read it.
+
 ## 0.5.5
 
 * Updates Google Play Billing Library from 8.0.0 to 9.1.0.
