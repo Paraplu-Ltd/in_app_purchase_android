@@ -100,6 +100,10 @@ PlatformOneTimePurchaseOfferDetails? _convertToPigeonOneTimePurchaseOfferDetails
     fullPriceMicros: offer.fullPriceMicros,
     percentageDiscount: offer.percentageDiscount,
     offerTags: offer.offerTags,
+    startTimeMillis: offer.startTimeMillis,
+    endTimeMillis: offer.endTimeMillis,
+    maximumQuantity: offer.maximumQuantity,
+    remainingQuantity: offer.remainingQuantity,
   );
 }
 

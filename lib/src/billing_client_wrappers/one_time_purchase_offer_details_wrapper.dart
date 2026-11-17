@@ -20,6 +20,10 @@ class OneTimePurchaseOfferDetailsWrapper {
     this.fullPriceMicros,
     this.percentageDiscount,
     this.offerTags = const <String>[],
+    this.startTimeMillis,
+    this.endTimeMillis,
+    this.maximumQuantity,
+    this.remainingQuantity,
   });
 
   /// Formatted price for the payment, including its currency sign.
@@ -64,6 +68,20 @@ class OneTimePurchaseOfferDetailsWrapper {
   /// The offer's tags, as set in Play Console.
   final List<String> offerTags;
 
+  /// When the offer starts, in milliseconds since the epoch, if it has a
+  /// start time.
+  final int? startTimeMillis;
+
+  /// When the offer ends, in milliseconds since the epoch, if it has an end
+  /// time.
+  final int? endTimeMillis;
+
+  /// How many times the offer can be bought in all, if it is limited.
+  final int? maximumQuantity;
+
+  /// How many more times the offer can be bought, if it is limited.
+  final int? remainingQuantity;
+
   @override
   bool operator ==(Object other) {
     if (other.runtimeType != runtimeType) {
@@ -79,7 +97,11 @@ class OneTimePurchaseOfferDetailsWrapper {
         other.purchaseOptionId == purchaseOptionId &&
         other.fullPriceMicros == fullPriceMicros &&
         other.percentageDiscount == percentageDiscount &&
-        listEquals(other.offerTags, offerTags);
+        listEquals(other.offerTags, offerTags) &&
+        other.startTimeMillis == startTimeMillis &&
+        other.endTimeMillis == endTimeMillis &&
+        other.maximumQuantity == maximumQuantity &&
+        other.remainingQuantity == remainingQuantity;
   }
 
   @override
@@ -94,6 +116,10 @@ class OneTimePurchaseOfferDetailsWrapper {
       fullPriceMicros,
       percentageDiscount,
       Object.hashAll(offerTags),
+      startTimeMillis,
+      endTimeMillis,
+      maximumQuantity,
+      remainingQuantity,
     );
   }
 }

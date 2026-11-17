@@ -345,6 +345,10 @@ class PlatformOneTimePurchaseOfferDetails {
     this.fullPriceMicros,
     this.percentageDiscount,
     required this.offerTags,
+    this.startTimeMillis,
+    this.endTimeMillis,
+    this.maximumQuantity,
+    this.remainingQuantity,
   });
 
   int priceAmountMicros;
@@ -365,6 +369,14 @@ class PlatformOneTimePurchaseOfferDetails {
 
   List<String> offerTags;
 
+  int? startTimeMillis;
+
+  int? endTimeMillis;
+
+  int? maximumQuantity;
+
+  int? remainingQuantity;
+
   List<Object?> _toList() {
     return <Object?>[
       priceAmountMicros,
@@ -376,6 +388,10 @@ class PlatformOneTimePurchaseOfferDetails {
       fullPriceMicros,
       percentageDiscount,
       offerTags,
+      startTimeMillis,
+      endTimeMillis,
+      maximumQuantity,
+      remainingQuantity,
     ];
   }
 
@@ -395,6 +411,10 @@ class PlatformOneTimePurchaseOfferDetails {
       fullPriceMicros: result[6] as int?,
       percentageDiscount: result[7] as int?,
       offerTags: (result[8]! as List<Object?>).cast<String>(),
+      startTimeMillis: result[9] as int?,
+      endTimeMillis: result[10] as int?,
+      maximumQuantity: result[11] as int?,
+      remainingQuantity: result[12] as int?,
     );
   }
 
@@ -415,7 +435,11 @@ class PlatformOneTimePurchaseOfferDetails {
         _deepEquals(purchaseOptionId, other.purchaseOptionId) &&
         _deepEquals(fullPriceMicros, other.fullPriceMicros) &&
         _deepEquals(percentageDiscount, other.percentageDiscount) &&
-        _deepEquals(offerTags, other.offerTags);
+        _deepEquals(offerTags, other.offerTags) &&
+        _deepEquals(startTimeMillis, other.startTimeMillis) &&
+        _deepEquals(endTimeMillis, other.endTimeMillis) &&
+        _deepEquals(maximumQuantity, other.maximumQuantity) &&
+        _deepEquals(remainingQuantity, other.remainingQuantity);
   }
 
   @override
@@ -424,7 +448,7 @@ class PlatformOneTimePurchaseOfferDetails {
 
   @override
   String toString() {
-    return 'PlatformOneTimePurchaseOfferDetails(priceAmountMicros: $priceAmountMicros, formattedPrice: $formattedPrice, priceCurrencyCode: $priceCurrencyCode, offerToken: $offerToken, offerId: $offerId, purchaseOptionId: $purchaseOptionId, fullPriceMicros: $fullPriceMicros, percentageDiscount: $percentageDiscount, offerTags: $offerTags)';
+    return 'PlatformOneTimePurchaseOfferDetails(priceAmountMicros: $priceAmountMicros, formattedPrice: $formattedPrice, priceCurrencyCode: $priceCurrencyCode, offerToken: $offerToken, offerId: $offerId, purchaseOptionId: $purchaseOptionId, fullPriceMicros: $fullPriceMicros, percentageDiscount: $percentageDiscount, offerTags: $offerTags, startTimeMillis: $startTimeMillis, endTimeMillis: $endTimeMillis, maximumQuantity: $maximumQuantity, remainingQuantity: $remainingQuantity)';
   }
 }
 

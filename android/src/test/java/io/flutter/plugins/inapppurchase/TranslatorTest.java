@@ -35,7 +35,9 @@ public class TranslatorTest {
       "{\"title\":\"Example title\",\"description\":\"Example description\",\"productId\":\"Example"
           + " id\",\"type\":\"inapp\",\"name\":\"Example"
           + " name\",\"oneTimePurchaseOfferDetails\":{\"priceAmountMicros\":990000,\"priceCurrencyCode\":\"USD\",\"formattedPrice\":\"$0.99\",\"offerIdToken\":\"Example"
-          + " offer token\",\"offerId\":\"launch\",\"purchaseOptionId\":\"buy\",\"fullPriceMicros\":1990000}}";
+          + " offer token\",\"offerId\":\"launch\",\"purchaseOptionId\":\"buy\",\"fullPriceMicros\":1990000,"
+          + "\"validTimeWindow\":{\"startTimeMillis\":1798761600000,\"endTimeMillis\":1800835200000},"
+          + "\"limitedQuantityInfo\":{\"maximumQuantity\":1000,\"remainingQuantity\":742}}}";
   private static final String SUBS_PRODUCT_DETAIL_EXAMPLE_JSON =
       "{\"title\":\"Example title 2\",\"description\":\"Example description"
           + " 2\",\"productId\":\"Example id 2\",\"type\":\"subs\",\"name\":\"Example name"
@@ -71,6 +73,16 @@ public class TranslatorTest {
     assertEquals("buy", serialized.getOneTimePurchaseOfferDetails().getPurchaseOptionId());
     assertEquals(
         Long.valueOf(1990000), serialized.getOneTimePurchaseOfferDetails().getFullPriceMicros());
+    assertEquals(
+        Long.valueOf(1798761600000L),
+        serialized.getOneTimePurchaseOfferDetails().getStartTimeMillis());
+    assertEquals(
+        Long.valueOf(1800835200000L),
+        serialized.getOneTimePurchaseOfferDetails().getEndTimeMillis());
+    assertEquals(
+        Long.valueOf(1000), serialized.getOneTimePurchaseOfferDetails().getMaximumQuantity());
+    assertEquals(
+        Long.valueOf(742), serialized.getOneTimePurchaseOfferDetails().getRemainingQuantity());
   }
 
   @Test
@@ -252,6 +264,26 @@ public class TranslatorTest {
     assertEquals(
         expected.getOfferTags() == null ? Collections.emptyList() : expected.getOfferTags(),
         serialized.getOfferTags());
+    assertEquals(
+        expected.getValidTimeWindow() == null
+            ? null
+            : expected.getValidTimeWindow().getStartTimeMillis(),
+        serialized.getStartTimeMillis());
+    assertEquals(
+        expected.getValidTimeWindow() == null
+            ? null
+            : expected.getValidTimeWindow().getEndTimeMillis(),
+        serialized.getEndTimeMillis());
+    assertEquals(
+        expected.getLimitedQuantityInfo() == null
+            ? null
+            : Long.valueOf(expected.getLimitedQuantityInfo().getMaximumQuantity()),
+        serialized.getMaximumQuantity());
+    assertEquals(
+        expected.getLimitedQuantityInfo() == null
+            ? null
+            : Long.valueOf(expected.getLimitedQuantityInfo().getRemainingQuantity()),
+        serialized.getRemainingQuantity());
   }
 
   private void assertSerialized(

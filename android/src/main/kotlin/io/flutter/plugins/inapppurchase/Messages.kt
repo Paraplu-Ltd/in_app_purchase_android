@@ -494,7 +494,11 @@ data class PlatformOneTimePurchaseOfferDetails(
     val purchaseOptionId: String? = null,
     val fullPriceMicros: Long? = null,
     val percentageDiscount: Long? = null,
-    val offerTags: List<String>
+    val offerTags: List<String>,
+    val startTimeMillis: Long? = null,
+    val endTimeMillis: Long? = null,
+    val maximumQuantity: Long? = null,
+    val remainingQuantity: Long? = null
 ) {
   companion object {
     fun fromList(pigeonVar_list: List<Any?>): PlatformOneTimePurchaseOfferDetails {
@@ -507,6 +511,10 @@ data class PlatformOneTimePurchaseOfferDetails(
       val fullPriceMicros = pigeonVar_list[6] as Long?
       val percentageDiscount = pigeonVar_list[7] as Long?
       val offerTags = pigeonVar_list[8] as List<String>
+      val startTimeMillis = pigeonVar_list[9] as Long?
+      val endTimeMillis = pigeonVar_list[10] as Long?
+      val maximumQuantity = pigeonVar_list[11] as Long?
+      val remainingQuantity = pigeonVar_list[12] as Long?
       return PlatformOneTimePurchaseOfferDetails(
           priceAmountMicros,
           formattedPrice,
@@ -516,7 +524,11 @@ data class PlatformOneTimePurchaseOfferDetails(
           purchaseOptionId,
           fullPriceMicros,
           percentageDiscount,
-          offerTags)
+          offerTags,
+          startTimeMillis,
+          endTimeMillis,
+          maximumQuantity,
+          remainingQuantity)
     }
   }
 
@@ -531,6 +543,10 @@ data class PlatformOneTimePurchaseOfferDetails(
         fullPriceMicros,
         percentageDiscount,
         offerTags,
+        startTimeMillis,
+        endTimeMillis,
+        maximumQuantity,
+        remainingQuantity,
     )
   }
 
@@ -550,7 +566,11 @@ data class PlatformOneTimePurchaseOfferDetails(
         MessagesPigeonUtils.deepEquals(this.purchaseOptionId, other.purchaseOptionId) &&
         MessagesPigeonUtils.deepEquals(this.fullPriceMicros, other.fullPriceMicros) &&
         MessagesPigeonUtils.deepEquals(this.percentageDiscount, other.percentageDiscount) &&
-        MessagesPigeonUtils.deepEquals(this.offerTags, other.offerTags)
+        MessagesPigeonUtils.deepEquals(this.offerTags, other.offerTags) &&
+        MessagesPigeonUtils.deepEquals(this.startTimeMillis, other.startTimeMillis) &&
+        MessagesPigeonUtils.deepEquals(this.endTimeMillis, other.endTimeMillis) &&
+        MessagesPigeonUtils.deepEquals(this.maximumQuantity, other.maximumQuantity) &&
+        MessagesPigeonUtils.deepEquals(this.remainingQuantity, other.remainingQuantity)
   }
 
   override fun hashCode(): Int {
@@ -564,11 +584,15 @@ data class PlatformOneTimePurchaseOfferDetails(
     result = 31 * result + MessagesPigeonUtils.deepHash(this.fullPriceMicros)
     result = 31 * result + MessagesPigeonUtils.deepHash(this.percentageDiscount)
     result = 31 * result + MessagesPigeonUtils.deepHash(this.offerTags)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.startTimeMillis)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.endTimeMillis)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.maximumQuantity)
+    result = 31 * result + MessagesPigeonUtils.deepHash(this.remainingQuantity)
     return result
   }
 
   override fun toString(): String {
-    return "PlatformOneTimePurchaseOfferDetails(priceAmountMicros=$priceAmountMicros, formattedPrice=$formattedPrice, priceCurrencyCode=$priceCurrencyCode, offerToken=$offerToken, offerId=$offerId, purchaseOptionId=$purchaseOptionId, fullPriceMicros=$fullPriceMicros, percentageDiscount=$percentageDiscount, offerTags=$offerTags)"
+    return "PlatformOneTimePurchaseOfferDetails(priceAmountMicros=$priceAmountMicros, formattedPrice=$formattedPrice, priceCurrencyCode=$priceCurrencyCode, offerToken=$offerToken, offerId=$offerId, purchaseOptionId=$purchaseOptionId, fullPriceMicros=$fullPriceMicros, percentageDiscount=$percentageDiscount, offerTags=$offerTags, startTimeMillis=$startTimeMillis, endTimeMillis=$endTimeMillis, maximumQuantity=$maximumQuantity, remainingQuantity=$remainingQuantity)"
   }
 }
 

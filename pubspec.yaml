@@ -5,7 +5,7 @@ issue_tracker: https://github.com/flutter/flutter/issues?q=is%3Aissue+is%3Aopen+
 
 publish_to: none
 
-version: 0.5.5+paraplu.1
+version: 0.5.5+paraplu.2
 
 environment:
   sdk: ^3.12.0

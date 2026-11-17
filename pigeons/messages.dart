@@ -72,6 +72,10 @@ class PlatformOneTimePurchaseOfferDetails {
     required this.fullPriceMicros,
     required this.percentageDiscount,
     required this.offerTags,
+    required this.startTimeMillis,
+    required this.endTimeMillis,
+    required this.maximumQuantity,
+    required this.remainingQuantity,
   });
 
   final int priceAmountMicros;
@@ -83,6 +87,10 @@ class PlatformOneTimePurchaseOfferDetails {
   final int? fullPriceMicros;
   final int? percentageDiscount;
   final List<String> offerTags;
+  final int? startTimeMillis;
+  final int? endTimeMillis;
+  final int? maximumQuantity;
+  final int? remainingQuantity;
 }
 
 /// Pigeon version of Java ProductDetails.

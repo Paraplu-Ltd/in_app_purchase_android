@@ -84,7 +84,13 @@ fun fromOneTimePurchaseOfferDetails(
       fullPriceMicros = oneTimePurchaseOfferDetails.fullPriceMicros,
       percentageDiscount =
           oneTimePurchaseOfferDetails.discountDisplayInfo?.percentageDiscount?.toLong(),
-      offerTags = oneTimePurchaseOfferDetails.offerTags ?: emptyList())
+      offerTags = oneTimePurchaseOfferDetails.offerTags ?: emptyList(),
+      startTimeMillis = oneTimePurchaseOfferDetails.validTimeWindow?.startTimeMillis,
+      endTimeMillis = oneTimePurchaseOfferDetails.validTimeWindow?.endTimeMillis,
+      maximumQuantity =
+          oneTimePurchaseOfferDetails.limitedQuantityInfo?.maximumQuantity?.toLong(),
+      remainingQuantity =
+          oneTimePurchaseOfferDetails.limitedQuantityInfo?.remainingQuantity?.toLong())
 }
 
 fun fromOneTimePurchaseOfferDetailsList(

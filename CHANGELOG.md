@@ -1,3 +1,11 @@
+## 0.5.5+paraplu.2
+
+* Adds `startTimeMillis` and `endTimeMillis` (the offer's valid time window)
+  and `maximumQuantity` and `remainingQuantity` (its limited quantity) to
+  `OneTimePurchaseOfferDetailsWrapper`, from Billing Library's
+  `ValidTimeWindow` and `LimitedQuantityInfo`. Each is null when the offer has
+  none.
+
 ## 0.5.5+paraplu.1
 
 * Paraplu fork. Adds `offerToken`, `offerId`, `purchaseOptionId`,

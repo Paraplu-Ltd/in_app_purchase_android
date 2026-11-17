@@ -83,6 +83,10 @@ OneTimePurchaseOfferDetailsWrapper? oneTimePurchaseOfferDetailsWrapperFromPlatfo
     fullPriceMicros: details.fullPriceMicros,
     percentageDiscount: details.percentageDiscount,
     offerTags: details.offerTags,
+    startTimeMillis: details.startTimeMillis,
+    endTimeMillis: details.endTimeMillis,
+    maximumQuantity: details.maximumQuantity,
+    remainingQuantity: details.remainingQuantity,
   );
 }
 
