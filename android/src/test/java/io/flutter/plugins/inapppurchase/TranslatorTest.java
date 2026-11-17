@@ -34,8 +34,8 @@ public class TranslatorTest {
   private static final String IN_APP_PRODUCT_DETAIL_EXAMPLE_JSON =
       "{\"title\":\"Example title\",\"description\":\"Example description\",\"productId\":\"Example"
           + " id\",\"type\":\"inapp\",\"name\":\"Example"
-          + " name\",\"oneTimePurchaseOfferDetails\":{\"priceAmountMicros\":990000,\"priceCurrencyCode\":\"USD\",\"formattedPrice\":\"$0.99\",\"offerToken\":\"Example"
-          + " offer token\",\"offerId\":\"launch\"}}";
+          + " name\",\"oneTimePurchaseOfferDetails\":{\"priceAmountMicros\":990000,\"priceCurrencyCode\":\"USD\",\"formattedPrice\":\"$0.99\",\"offerIdToken\":\"Example"
+          + " offer token\",\"offerId\":\"launch\",\"purchaseOptionId\":\"buy\",\"fullPriceMicros\":1990000}}";
   private static final String SUBS_PRODUCT_DETAIL_EXAMPLE_JSON =
       "{\"title\":\"Example title 2\",\"description\":\"Example description"
           + " 2\",\"productId\":\"Example id 2\",\"type\":\"subs\",\"name\":\"Example name"
@@ -68,6 +68,9 @@ public class TranslatorTest {
     assertEquals(
         "Example offer token", serialized.getOneTimePurchaseOfferDetails().getOfferToken());
     assertEquals("launch", serialized.getOneTimePurchaseOfferDetails().getOfferId());
+    assertEquals("buy", serialized.getOneTimePurchaseOfferDetails().getPurchaseOptionId());
+    assertEquals(
+        Long.valueOf(1990000), serialized.getOneTimePurchaseOfferDetails().getFullPriceMicros());
   }
 
   @Test
@@ -246,7 +249,9 @@ public class TranslatorTest {
     assertEquals(expected.getOfferId(), serialized.getOfferId());
     assertEquals(expected.getPurchaseOptionId(), serialized.getPurchaseOptionId());
     assertEquals(expected.getFullPriceMicros(), serialized.getFullPriceMicros());
-    assertEquals(expected.getOfferTags(), serialized.getOfferTags());
+    assertEquals(
+        expected.getOfferTags() == null ? Collections.emptyList() : expected.getOfferTags(),
+        serialized.getOfferTags());
   }
 
   private void assertSerialized(
@@ -263,7 +268,9 @@ public class TranslatorTest {
       PlatformSubscriptionOfferDetails serialized) {
     assertEquals(expected.getBasePlanId(), serialized.getBasePlanId());
     assertEquals(expected.getOfferId(), serialized.getOfferId());
-    assertEquals(expected.getOfferTags(), serialized.getOfferTags());
+    assertEquals(
+        expected.getOfferTags() == null ? Collections.emptyList() : expected.getOfferTags(),
+        serialized.getOfferTags());
     assertEquals(expected.getOfferToken(), serialized.getOfferToken());
     assertSerialized(expected.getPricingPhases(), serialized.getPricingPhases());
 

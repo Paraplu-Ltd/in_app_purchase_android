@@ -84,7 +84,7 @@ fun fromOneTimePurchaseOfferDetails(
       fullPriceMicros = oneTimePurchaseOfferDetails.fullPriceMicros,
       percentageDiscount =
           oneTimePurchaseOfferDetails.discountDisplayInfo?.percentageDiscount?.toLong(),
-      offerTags = oneTimePurchaseOfferDetails.offerTags)
+      offerTags = oneTimePurchaseOfferDetails.offerTags ?: emptyList())
 }
 
 fun fromOneTimePurchaseOfferDetailsList(
