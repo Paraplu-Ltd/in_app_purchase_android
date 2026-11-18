@@ -164,6 +164,9 @@ class InAppPurchaseAndroidPlatform extends InAppPurchasePlatform {
       offerToken = (purchaseParam.productDetails as GooglePlayProductDetails).offerToken;
     }
 
+    // Before the launch: Play can report the sheet's result while the launch
+    // call is still returning.
+    _launchedProductId = purchaseParam.productDetails.id;
     final BillingResultWrapper billingResultWrapper = await billingClientManager.runWithClient(
       (BillingClient client) => client.launchBillingFlow(
         product: purchaseParam.productDetails.id,
@@ -176,8 +179,20 @@ class InAppPurchaseAndroidPlatform extends InAppPurchasePlatform {
         replacementMode: changeSubscriptionParam?.replacementMode,
       ),
     );
-    return billingResultWrapper.responseCode == BillingResponse.ok;
+    final bool launched = billingResultWrapper.responseCode == BillingResponse.ok;
+    // No sheet opened, so no result will come back for it.
+    if (!launched) _launchedProductId = null;
+    return launched;
   }
+
+  /// The product whose purchase sheet is up, from [buyNonConsumable] until its
+  /// result comes back. Paraplu's fork (0.5.5+paraplu.3): Play reports a sheet
+  /// that ends without a purchase (an error, or the user backing out) with an
+  /// empty purchase list, so nothing in the update says which product it was
+  /// for. Play shows one purchase sheet at a time, so the update with no
+  /// purchases is this one's, and its [PurchaseDetails.productID] is this
+  /// rather than an empty string.
+  String? _launchedProductId;
 
   @override
   Future<bool> buyConsumable({required PurchaseParam purchaseParam, bool autoConsume = true}) {
@@ -293,8 +308,15 @@ class InAppPurchaseAndroidPlatform extends InAppPurchasePlatform {
         })
         .toList();
     if (purchases.isNotEmpty) {
+      if (resultWrapper.purchasesList.any(
+        (PurchaseWrapper p) => p.products.contains(_launchedProductId),
+      )) {
+        _launchedProductId = null;
+      }
       return Future.wait(purchases);
     } else {
+      final String productId = _launchedProductId ?? '';
+      _launchedProductId = null;
       PurchaseStatus status = PurchaseStatus.error;
       if (resultWrapper.responseCode == BillingResponse.userCanceled) {
         status = PurchaseStatus.canceled;
@@ -304,7 +326,7 @@ class InAppPurchaseAndroidPlatform extends InAppPurchasePlatform {
       return <PurchaseDetails>[
         PurchaseDetails(
           purchaseID: '',
-          productID: '',
+          productID: productId,
           status: status,
           transactionDate: null,
           verificationData: PurchaseVerificationData(

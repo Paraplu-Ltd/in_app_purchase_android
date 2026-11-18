@@ -526,6 +526,60 @@ void main() {
       expect(result.error!.source, kIAPSource);
       expect(result.status, PurchaseStatus.error);
       expect(result.purchaseID, isEmpty);
+      // Paraplu's fork: the product the sheet was opened for.
+      expect(result.productID, productDetails.productId);
+    });
+
+    test('an update with no purchases and no sheet open has no product', () async {
+      const failed = BillingResultWrapper(
+        responseCode: BillingResponse.error,
+        debugMessage: 'dummy message',
+      );
+      final completer = Completer<PurchaseDetails>();
+      late StreamSubscription<List<PurchaseDetails>> subscription;
+      subscription = iapAndroidPlatform.purchaseStream.listen((List<PurchaseDetails> details) {
+        completer.complete(details.first);
+        subscription.cancel();
+      });
+      iapAndroidPlatform.billingClientManager.client.hostCallbackHandler.onPurchasesUpdated(
+        PlatformPurchasesResponse(
+          billingResult: convertToPigeonResult(failed),
+          purchases: <PlatformPurchase>[],
+        ),
+      );
+      final PurchaseDetails result = await completer.future;
+      expect(result.productID, isEmpty);
+      expect(result.status, PurchaseStatus.error);
+    });
+
+    test('a sheet that did not open leaves no product for a later update', () async {
+      const failed = BillingResultWrapper(
+        responseCode: BillingResponse.error,
+        debugMessage: 'dummy message',
+      );
+      when(mockApi.launchBillingFlow(any)).thenAnswer((_) async => convertToPigeonResult(failed));
+      final bool launched = await iapAndroidPlatform.buyNonConsumable(
+        purchaseParam: GooglePlayPurchaseParam(
+          productDetails: GooglePlayProductDetails.fromProductDetails(
+            dummyOneTimeProductDetails,
+          ).first,
+        ),
+      );
+      expect(launched, isFalse);
+
+      final completer = Completer<PurchaseDetails>();
+      late StreamSubscription<List<PurchaseDetails>> subscription;
+      subscription = iapAndroidPlatform.purchaseStream.listen((List<PurchaseDetails> details) {
+        completer.complete(details.first);
+        subscription.cancel();
+      });
+      iapAndroidPlatform.billingClientManager.client.hostCallbackHandler.onPurchasesUpdated(
+        PlatformPurchasesResponse(
+          billingResult: convertToPigeonResult(failed),
+          purchases: <PlatformPurchase>[],
+        ),
+      );
+      expect((await completer.future).productID, isEmpty);
     });
 
     test('buy consumable with auto consume, serializes and deserializes data', () async {

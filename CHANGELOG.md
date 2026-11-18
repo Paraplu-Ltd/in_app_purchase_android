@@ -1,3 +1,12 @@
+## 0.5.5+paraplu.3
+
+* A purchase sheet that ends without a purchase (an error, or the user
+  backing out) is reported with the `productID` of the product the sheet was
+  opened for, rather than an empty string. Play's update carries no product
+  then, so the platform remembers the product from `buyNonConsumable` (and
+  `buyConsumable`) until its result arrives. An update with no purchases and
+  no sheet open still has an empty `productID`.
+
 ## 0.5.5+paraplu.2
 
 * Adds `startTimeMillis` and `endTimeMillis` (the offer's valid time window)
